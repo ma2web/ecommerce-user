@@ -1,16 +1,36 @@
-import { TextField, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './layout/Navbar/Navbar';
+import About from './pages/about/About';
+import Contact from './pages/contact/Contact';
+import Landing from './pages/landing/Landing';
+import Products from './pages/products/Products';
+import store from './redux/store';
 import { RTL } from './theme/RTL';
 import { theme } from './theme/theme';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <RTL>
-        <div className='App'>
-          <TextField label='سلام' />
-        </div>
-      </RTL>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <RTL>
+          <div>
+            <Router>
+              <div>
+                <Navbar />
+                <Routes>
+                  <Route exact path='/products' element={<Products />} />
+                  <Route exact path='/about' element={<About />} />
+                  <Route exact path='/contact' element={<Contact />} />
+                  <Route exact path='/' element={<Landing />} />
+                </Routes>
+              </div>
+            </Router>
+          </div>
+        </RTL>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
