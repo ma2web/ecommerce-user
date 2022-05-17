@@ -2,8 +2,16 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    color: theme.palette.primary.main,
     padding: theme.spacing(4),
+    minHeight: 'calc(100vh - 116px)',
+  },
+  back: {
+    textAlign: 'left',
+  },
+  copyRight: {
+    textAlign: 'center',
+    backgroundColor: theme.palette.grey[200],
+    padding: theme.spacing(2),
   },
 }));
 

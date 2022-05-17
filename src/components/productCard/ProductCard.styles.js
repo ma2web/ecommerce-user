@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
+    cursor: 'pointer',
   },
   price: {
     position: 'absolute',

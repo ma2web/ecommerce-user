@@ -1,11 +1,17 @@
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
+  productSection: {
+    marginTop: theme.spacing(5),
+  },
+  seeAll: {
+    marginBottom: theme.spacing(3),
+    textAlign: 'left',
+  },
   products: {
     display: 'flex',
     width: '100%',
     flexWrap: 'wrap',
-    marginTop: theme.spacing(5),
   },
   product: {
     paddingLeft: theme.spacing(3),

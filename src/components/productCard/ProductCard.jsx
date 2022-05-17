@@ -2,14 +2,19 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../../redux/api';
 import { addCommas } from '../../utils/utils';
 import useStyles from './ProductCard.styles';
 
 export default function ProductCard({ product }) {
   const classes = useStyles();
+  const navigate = useNavigate();
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      onClick={() => navigate(`/product/${product?._id}`)}
+    >
       <div className={classes.price}>
         <Typography variant='h6'>{addCommas(product?.price)} تومان</Typography>
       </div>
@@ -36,14 +41,6 @@ export default function ProductCard({ product }) {
             {product?.description}
           </Typography>
         </CardContent>
-        {/* <CardActions disableSpacing>
-          <IconButton aria-label='add to favorites'>
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label='share'>
-            <ShareIcon />
-          </IconButton>
-        </CardActions> */}
       </Card>
     </div>
   );

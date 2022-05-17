@@ -5,6 +5,7 @@ import Navbar from './layout/Navbar/Navbar';
 import About from './pages/about/About';
 import Contact from './pages/contact/Contact';
 import Landing from './pages/landing/Landing';
+import Product from './pages/product/Product';
 import Products from './pages/products/Products';
 import store from './redux/store';
 import { RTL } from './theme/RTL';
@@ -20,6 +21,7 @@ function App() {
               <div>
                 <Navbar />
                 <Routes>
+                  <Route exact path='/product/:id' element={<Product />} />
                   <Route exact path='/products' element={<Products />} />
                   <Route exact path='/about' element={<About />} />
                   <Route exact path='/contact' element={<Contact />} />

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProductCard from '../../components/productCard/ProductCard';
 import MainLayout from '../../layout/MainLayout/MainLayout';
 import { productActions } from '../../redux/actions/products';
-import useStyles from './Product.styles';
+import useStyles from './Products.styles';
 
 const Products = () => {
   const classes = useStyles();
