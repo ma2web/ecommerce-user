@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
     '& a': {
       color: theme.palette.common.white,
       textDecoration: 'none',
+      borderBottom: '2px solid transparent',
+      display: 'inline-block',
+    },
+    '& a.active': {
+      borderBottom: `2px solid ${theme.palette.common.white}`,
     },
   },
 }));

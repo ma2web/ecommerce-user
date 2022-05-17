@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -23,22 +23,19 @@ const Landing = () => {
 
   return (
     <MainLayout>
-      <Typography variant='h4'>صفحه اصلی</Typography>
-      <div className={classes.productSection}>
-        <div className={classes.seeAll}>
-          <Link to='/products'>
-            <Button color='secondary' variant='outlined'>
-              مشاهده همه
-            </Button>
-          </Link>
-        </div>
-        <div className={classes.products}>
-          {products?.map((product) => (
-            <div className={classes.product}>
-              <ProductCard product={product} key={product?.id} />
-            </div>
-          ))}
-        </div>
+      <div className={classes.seeAll}>
+        <Link to='/products'>
+          <Button color='secondary' variant='outlined'>
+            مشاهده همه
+          </Button>
+        </Link>
+      </div>
+      <div className={classes.products}>
+        {products?.map((product) => (
+          <div className={classes.product}>
+            <ProductCard product={product} key={product?.id} />
+          </div>
+        ))}
       </div>
     </MainLayout>
   );

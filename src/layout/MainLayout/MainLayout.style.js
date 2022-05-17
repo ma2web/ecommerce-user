@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(4),
-    minHeight: 'calc(100vh - 116px)',
+    minHeight: 'calc(100vh - 118px)',
   },
   back: {
     textAlign: 'left',

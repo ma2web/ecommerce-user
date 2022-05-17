@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import useStyles from './Navbar.styles';
 
 const Navbar = () => {
@@ -8,24 +8,24 @@ const Navbar = () => {
     <nav className={classes.root}>
       <ul className={classes.ul}>
         <li className={classes.li}>
-          <Link to='/'>
+          <NavLink to='/' exact>
             <Typography variant='h6'>خانه</Typography>
-          </Link>
+          </NavLink>
         </li>
         <li className={classes.li}>
-          <Link to='/products'>
+          <NavLink to='/products'>
             <Typography variant='h6'>محصولات</Typography>
-          </Link>
+          </NavLink>
         </li>
         <li className={classes.li}>
-          <Link to='/about'>
+          <NavLink to='/about'>
             <Typography variant='h6'>درباره ما</Typography>
-          </Link>
+          </NavLink>
         </li>
         <li className={classes.li}>
-          <Link to='/contact'>
+          <NavLink to='/contact'>
             <Typography variant='h6'>تماس با ما</Typography>
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </nav>
