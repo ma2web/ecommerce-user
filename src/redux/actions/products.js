@@ -23,4 +23,15 @@ export const productActions = {
         console.log(error);
       }
     },
+  getProductByCategoryId:
+    ({ id }) =>
+    async (dispatch) => {
+      try {
+        const response = await axios.get(`${api}/api/products/category/${id}`);
+
+        dispatch({ type: PRODUCTS, payload: response.data });
+      } catch (error) {
+        console.log(error);
+      }
+    },
 };
