@@ -7,10 +7,24 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     marginTop: theme.spacing(5),
   },
+  products: {
+    width: 80 + '%',
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  filter: {
+    width: 20 + '%',
+  },
   product: {
     paddingLeft: theme.spacing(3),
     paddingBottom: theme.spacing(3),
-    width: '25%',
+    width: '33.33%',
+  },
+  productData: {
+    padding: theme.spacing(1),
+  },
+  formControl: {
+    width: 100 + '% !important',
   },
 }));
 
