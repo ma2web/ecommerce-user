@@ -14,13 +14,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-block',
     padding: theme.spacing(2),
     '& a': {
-      color: theme.palette.common.white,
+      color: theme.palette.secondary.main,
       textDecoration: 'none',
       borderBottom: '2px solid transparent',
       display: 'inline-block',
     },
     '& a.active': {
-      borderBottom: `2px solid ${theme.palette.common.white}`,
+      borderBottom: `2px solid ${theme.palette.secondary.main}`,
     },
   },
 }));

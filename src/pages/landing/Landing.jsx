@@ -50,6 +50,18 @@ const Landing = () => {
           autoPlay={true}
         />
       </div>
+      
+      <div className={classes.seeAll}>
+        <Typography variant='h6'>دسته بندی</Typography>
+      </div>
+      <div className={classes.categories}>
+        {categories?.map((category) => (
+          <div className={classes.category} key={category?.id}>
+            <CategoryCard category={category} />
+          </div>
+        ))}
+      </div>
+
       <div className={classes.seeAll}>
         <Typography variant='h6'>آخرین محصولات</Typography>
         <Link to='/products'>
@@ -62,16 +74,6 @@ const Landing = () => {
         {products?.map((product) => (
           <div className={classes.product} key={product?.id}>
             <ProductCard product={product} />
-          </div>
-        ))}
-      </div>
-      <div className={classes.seeAll}>
-        <Typography variant='h6'>دسته بندی</Typography>
-      </div>
-      <div className={classes.categories}>
-        {categories?.map((category) => (
-          <div className={classes.category} key={category?.id}>
-            <CategoryCard category={category} />
           </div>
         ))}
       </div>

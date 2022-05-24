@@ -6,6 +6,7 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import useStyles from './CategoryCard.styles';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import { useNavigate } from 'react-router-dom';
 
 const CategoryCard = ({ category }) => {
@@ -24,12 +25,15 @@ const CategoryCard = ({ category }) => {
         </Typography>
         <List>
           {category?.children?.map((el) => (
-            <ListItemButton
-              key={el?._id}
-              onClick={() => navigate(`/product/category/${el?._id}`)}
-            >
-              <ListItemText primary={el?.name} />
-            </ListItemButton>
+            <>
+              <ListItemButton
+                key={el?._id}
+                onClick={() => navigate(`/product/category/${el?._id}`)}
+              >
+                <ArrowLeftIcon />
+                <ListItemText primary={el?.name} />
+              </ListItemButton>
+            </>
           ))}
         </List>
       </CardContent>

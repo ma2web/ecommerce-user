@@ -4,12 +4,15 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Button,
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductCard from '../../components/productCard/ProductCard';
 import MainLayout from '../../layout/MainLayout/MainLayout';
 import { productActions } from '../../redux/actions/products';
+import { categoryActions } from '../../redux/actions/category';
+import { filterActions } from '../../redux/actions/filter';
 import useStyles from './Products.styles';
 
 const Products = () => {
@@ -17,19 +20,32 @@ const Products = () => {
   const renderAfterCalled = useRef(false);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
-  const [filter, setFilter] = useState({
-    category: '',
-    filter: '',
-    subFilter: '',
-  });
+  const categories = useSelector(
+    (state) => state.category.categories?.categoryList
+  );
+  const filters = useSelector((state) => state.filter.filters);
+  const [parentCategory, setParentCategory] = useState('');
+  const [childCategory, setChildCategory] = useState('');
+  const [parentFilter, setParentFilter] = useState('');
 
   useEffect(() => {
     if (!renderAfterCalled.current) {
       dispatch(productActions.getProducts());
+
+      if (!categories) {
+        dispatch(categoryActions.getCategories());
+      }
     }
 
     renderAfterCalled.current = true;
-  });
+
+    return () => {
+      setParentCategory('');
+      setChildCategory('');
+      setParentFilter('');
+    };
+  }, []);
+
   return (
     <MainLayout>
       <Typography variant='h4'>محصولات</Typography>
@@ -45,20 +61,82 @@ const Products = () => {
         </div>
         <div className={classes.filter}>
           <Typography variant='h6'>فیلتر</Typography>
-          <div>
+          <div className={classes.filterRow}>
             <FormControl className={classes.formControl}>
               <InputLabel id='demo-simple-select-label'>دسته بندی</InputLabel>
               <Select
-                onChange={(e) => {
-                  setFilter({ ...filter, category: e.target.value });
-                }}
-                value={filter?.category}
+                onChange={(e) => setParentCategory(e.target.value)}
+                value={parentCategory}
               >
-                <MenuItem value={10}>1</MenuItem>
-                <MenuItem value={20}>2</MenuItem>
-                <MenuItem value={30}>3</MenuItem>
+                {categories?.map((category) => (
+                  <MenuItem key={category?._id} value={category?._id}>
+                    {category?.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
+          </div>
+          {parentCategory && (
+            <div className={classes.filterRow}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id='demo-simple-select-label'>
+                  زیر دسته بندی
+                </InputLabel>
+                <Select
+                  onChange={async (e) => {
+                    await dispatch(
+                      filterActions.getByCategory({ id: e.target.value })
+                    );
+                    setChildCategory(e.target.value);
+                  }}
+                  value={childCategory}
+                >
+                  {categories
+                    ?.filter((item) => item?._id === parentCategory)?.[0]
+                    ?.children?.map((category) => (
+                      <MenuItem key={category?._id} value={category?._id}>
+                        {category?.name}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+            </div>
+          )}
+          {filters?.length > 0 &&
+            childCategory &&
+            filters?.map((filter) => (
+              <div className={classes.filterRow}>
+                <FormControl className={classes.formControl}>
+                  <InputLabel id='demo-simple-select-label'>
+                    {filter?.name}
+                  </InputLabel>
+                  <Select
+                    onChange={(e) =>
+                      setParentFilter({
+                        ...parentFilter,
+                        [filter?.name?.trim()]: e.target.value,
+                      })
+                    }
+                    value={parentFilter?.[filter?.name]}
+                  >
+                    {filter?.values?.map((value) => (
+                      <MenuItem key={value?._id} value={value?._id}>
+                        {value?.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            ))}
+          <div className={classes.filterRow}>
+            <Button
+              variant='contained'
+              color='secondary'
+              fullWidth
+              onClick={() => alert('API این قسمت در حال حاضر آماده نشده است')}
+            >
+              <Typography variant='h6'>اعمال فیلتر</Typography>
+            </Button>
           </div>
         </div>
       </div>

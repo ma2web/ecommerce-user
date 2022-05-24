@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     width: 100 + '% !important',
   },
+  filterRow: {
+    margin: theme.spacing(3, 0),
+  },
 }));
 
 export default useStyles;

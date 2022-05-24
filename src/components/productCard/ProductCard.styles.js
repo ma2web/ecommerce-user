@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     left: 0,
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
+    color: theme.palette.secondary.main,
     padding: theme.spacing(1, 2),
     borderRadius: '0 0 10px 0',
   },

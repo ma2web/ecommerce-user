@@ -32,6 +32,14 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(3),
     width: '25%',
   },
+  [theme.breakpoints.down('md')]: {
+    product: {
+      width: '100%',
+    },
+    category: {
+      width: '100%',
+    },
+  }
 }));
 
 export default useStyles;

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   name: {
     marginBottom: theme.spacing(5),
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
   },
   price: {
     color: theme.palette.secondary.main,
