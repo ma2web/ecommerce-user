@@ -46,6 +46,28 @@ const Products = () => {
     };
   }, []);
 
+  console.log({
+    caegories: parentCategory,
+    filters: Object.entries(parentFilter).map(([key, value]) => ({
+      name: key,
+      value: value,
+    })),
+  });
+
+  const handleFilter = async (e) => {
+    e.preventDefault();
+    const data = {
+      categories: parentCategory,
+      filters: Object.entries(parentFilter).map(([key, value]) => ({
+        name: key,
+        value: value,
+      })),
+    };
+
+    const res = await dispatch(productActions.filterProducts({ data }));
+    console.log(res);
+  };
+
   return (
     <MainLayout>
       <Typography variant='h4'>محصولات</Typography>
@@ -133,7 +155,7 @@ const Products = () => {
               variant='contained'
               color='secondary'
               fullWidth
-              onClick={() => alert('API این قسمت در حال حاضر آماده نشده است')}
+              onClick={handleFilter}
             >
               <Typography variant='h6'>اعمال فیلتر</Typography>
             </Button>

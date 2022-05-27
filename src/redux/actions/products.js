@@ -34,4 +34,15 @@ export const productActions = {
         console.log(error);
       }
     },
+  filterProducts:
+    ({ data }) =>
+    async (dispatch) => {
+      try {
+        const response = await axios.post(`${api}/api/product/filter`, data);
+
+        dispatch({ type: PRODUCTS, payload: response.data });
+      } catch (error) {
+        console.log(error);
+      }
+    },
 };
