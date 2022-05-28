@@ -47,7 +47,7 @@ const Products = () => {
   }, []);
 
   console.log({
-    caegories: parentCategory,
+    caegories: childCategory,
     filters: Object.entries(parentFilter).map(([key, value]) => ({
       name: key,
       value: value,
@@ -57,7 +57,7 @@ const Products = () => {
   const handleFilter = async (e) => {
     e.preventDefault();
     const data = {
-      categories: parentCategory,
+      categories: childCategory,
       filters: Object.entries(parentFilter).map(([key, value]) => ({
         name: key,
         value: value,
