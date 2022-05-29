@@ -40,6 +40,14 @@ export default function ProductCard({ product }) {
           >
             {product?.description}
           </Typography>
+          <br />
+          <Typography
+            className={classes.productDescription}
+            variant='caption'
+            color='text.secondary'
+          >
+            فروشنده:‌{product?.user?.firstName} {product?.user?.lastName}
+          </Typography>
         </CardContent>
       </Card>
     </div>

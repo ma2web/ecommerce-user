@@ -46,14 +46,6 @@ const Products = () => {
     };
   }, []);
 
-  console.log({
-    caegories: childCategory,
-    filters: Object.entries(parentFilter).map(([key, value]) => ({
-      name: key,
-      value: value,
-    })),
-  });
-
   const handleFilter = async (e) => {
     e.preventDefault();
     const data = {
