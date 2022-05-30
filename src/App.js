@@ -8,6 +8,8 @@ import Landing from './pages/landing/Landing';
 import Product from './pages/product/Product';
 import Products from './pages/products/Products';
 import ProductsByCategory from './pages/products/ProductsByCategory';
+import Login from './pages/auth/login/Login';
+import Register from './pages/auth/register/Register';
 
 import store from './redux/store';
 import { RTL } from './theme/RTL';
@@ -32,6 +34,8 @@ function App() {
                   <Route exact path='/products' element={<Products />} />
                   <Route exact path='/about' element={<About />} />
                   <Route exact path='/contact' element={<Contact />} />
+                  <Route exact path='/login' element={<Login />} />
+                  <Route exact path='/register' element={<Register />} />
                   <Route exact path='/' element={<Landing />} />
                 </Routes>
               </div>

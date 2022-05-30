@@ -4,6 +4,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(0, 2),
     backgroundColor: theme.palette.primary.main,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   ul: {
     listStyle: 'none',
