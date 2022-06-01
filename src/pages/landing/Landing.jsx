@@ -10,6 +10,10 @@ import { categoryActions } from '../../redux/actions/category';
 import useStyles from './Landing.styles';
 import { Typography } from '@mui/material';
 import SimpleImageSlider from 'react-simple-image-slider';
+import Slider1 from '../../assets/images/slider/01.jpg';
+import Slider2 from '../../assets/images/slider/02.jpg';
+import Slider3 from '../../assets/images/slider/03.jpg';
+import Slider4 from '../../assets/images/slider/04.jpg';
 
 const Landing = () => {
   const classes = useStyles();
@@ -32,10 +36,10 @@ const Landing = () => {
   });
 
   const images = [
-    { url: 'https://picsum.photos/id/237/1200/500' },
-    { url: 'https://picsum.photos/id/238/1200/500' },
-    { url: 'https://picsum.photos/id/239/1200/500' },
-    { url: 'https://picsum.photos/id/240/1200/500' },
+    { url: Slider1 },
+    { url: Slider2 },
+    { url: Slider3 },
+    { url: Slider4 },
   ];
 
   return (
