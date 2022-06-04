@@ -12,6 +12,7 @@ import ProductCard from '../../components/productCard/ProductCard';
 import MainLayout from '../../layout/MainLayout/MainLayout';
 import { productActions } from '../../redux/actions/products';
 import { categoryActions } from '../../redux/actions/category';
+import { watchlistActions } from '../../redux/actions/watchlist';
 import { filterActions } from '../../redux/actions/filter';
 import useStyles from './Products.styles';
 
@@ -28,9 +29,11 @@ const Products = () => {
   const [childCategory, setChildCategory] = useState('');
   const [parentFilter, setParentFilter] = useState('');
 
+
   useEffect(() => {
     if (!renderAfterCalled.current) {
       dispatch(productActions.getProducts());
+      dispatch(watchlistActions.getAll())
 
       if (!categories) {
         dispatch(categoryActions.getCategories());
@@ -56,8 +59,7 @@ const Products = () => {
       })),
     };
 
-    const res = await dispatch(productActions.filterProducts({ data }));
-    console.log(res);
+    await dispatch(productActions.filterProducts({ data }));
   };
 
   return (

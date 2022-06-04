@@ -18,7 +18,7 @@ const CategoryCard = ({ category }) => {
       <CardContent>
         <Typography
           className={classes.categoryName}
-          variant='h5'
+          variant='h6'
           color='text.secondary'
         >
           {category?.name}
