@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { api } from '../api';
 
-const { token } = JSON.parse(localStorage?.getItem('user'));
+const user = localStorage?.getItem('user') && JSON.parse(localStorage?.getItem('user'));
 
 export const watchlistActions = {
   getAll: () => async (dispatch) => {
     try {
       const response = await axios.get(`${api}/api/user/watchlist/list`, {
         headers: {
-          "x-auth-token": token,
+          "x-auth-token": user.token,
         },
       });
 
@@ -23,7 +23,7 @@ export const watchlistActions = {
       try {
         const response = await axios.post(`${api}/api/user/watchlist/add`, { productId }, {
           headers: {
-            "x-auth-token": token,
+            "x-auth-token": user.token,
           },
         });
 

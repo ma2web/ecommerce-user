@@ -6,10 +6,9 @@ import ProfileMenu from './ProfileMenu';
 
 const Navbar = () => {
   const classes = useStyles();
-  const userData = JSON.parse(localStorage?.getItem('user'));
+  const userData = localStorage?.getItem('user') && JSON.parse(localStorage?.getItem('user'));
   const navigate = useNavigate();
 
-  console.log(userData.token)
   return (
     <nav className={classes.root}>
       <div>
@@ -38,7 +37,7 @@ const Navbar = () => {
       </div>
       <div>
         
-        {userData.token ? (
+        {userData?.token ? (
            <ProfileMenu firstName={userData?.email}/>
         ) : (
           <ul className={classes.ul}>
