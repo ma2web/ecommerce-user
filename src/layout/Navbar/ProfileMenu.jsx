@@ -4,10 +4,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import {useNavigate} from 'react-router-dom';
 
 
 export default function SimpleListMenu({firstName}) {
-
+  const navigate = useNavigate();
   const options = [
     `سلام ${firstName}`,
     'لیست علاقه مندی ها',
@@ -23,6 +24,10 @@ export default function SimpleListMenu({firstName}) {
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setAnchorEl(null);
+
+    if (index === 1) {
+      navigate('/watchlist');
+    }
   };
 
   const handleClose = () => {

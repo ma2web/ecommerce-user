@@ -26,12 +26,14 @@ export default function ProductCard({ product }) {
 
     if (!favorite) {
       dispatch(watchlistActions.addToWatchlist({ productId }));
+    } else {
+      dispatch(watchlistActions.removeFromWatchlist({ productId }));
     }
   }
 
   React.useEffect(() => {
     if(watchlist.length > 0) {
-      const findItem = watchlist?.find((item) => item.product === product._id);
+      const findItem = watchlist?.find((item) => item.product._id === product._id);
 
       if(findItem?.product) {
         setFavorite(true);
@@ -43,7 +45,6 @@ export default function ProductCard({ product }) {
   return (
     <div
       className={classes.root}
-      
     >
       <div className={classes.price} onClick={() => navigate(`/product/${product?._id}`)}>
         <Typography variant='h6'>{addCommas(product?.price)} تومان</Typography>

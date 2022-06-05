@@ -33,10 +33,15 @@ export const watchlistActions = {
       }
     },
     removeFromWatchlist:
-    ({ id }) =>
+    ({ productId }) =>
     async (dispatch) => {
       try {
-        const response = await axios.get(`${api}/api/user/watchlist/remove`);
+        console.log(user.token)
+        const response = await axios.delete(`${api}/api/user/watchlist/remove/${productId}`, {
+          headers: {
+            "x-auth-token": user.token,
+          },
+        });
 
         // dispatch({ type: PRODUCTS, payload: response.data });
       } catch (error) {
