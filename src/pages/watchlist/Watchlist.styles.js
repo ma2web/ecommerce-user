@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5),
   },
   products: {
-    width: 80 + '%',
+    width: 100 + '%',
     display: 'flex',
     flexWrap: 'wrap',
   },

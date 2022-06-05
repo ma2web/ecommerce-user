@@ -25,6 +25,9 @@ export default function SimpleListMenu({firstName}) {
     setSelectedIndex(index);
     setAnchorEl(null);
 
+    if (index === 0) {
+      navigate('/profile');
+    }
     if (index === 1) {
       navigate('/watchlist');
     }
@@ -73,6 +76,12 @@ export default function SimpleListMenu({firstName}) {
             {option}
           </MenuItem>
         ))}
+        <MenuItem  onClick={(event) => {
+          localStorage.clear()
+          navigate('/')
+        }}>
+          خروج
+        </MenuItem>
       </Menu>
     </div>
   );

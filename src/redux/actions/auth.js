@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { api } from '../api';
 
+const user = localStorage?.getItem('user') && JSON.parse(localStorage?.getItem('user'));
+
 export const authActions = {
   login:
     ({ body }) =>
@@ -29,4 +31,19 @@ export const authActions = {
         console.log(error);
       }
     },
+    updateProfile: ({ body, id }) => async (dispatch) => {
+      try {
+        const response = await axios.put(`${api}/api/user/${id}`, {
+          ...body,
+        }, {
+          headers: {
+            "x-auth-token": user.token,
+          },
+        });
+
+        return response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    }
 };
