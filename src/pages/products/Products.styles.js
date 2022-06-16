@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     width: 20 + '%',
   },
   product: {
-    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
     paddingBottom: theme.spacing(3),
     width: '33.33%',
   },

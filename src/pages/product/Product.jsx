@@ -51,7 +51,9 @@ const Product = () => {
               <Typography className={classes.storeOwner} variant='body1'>
                 <Person /> {product?.user?.firstName} {product?.user?.lastName}
               </Typography>
-              <Typography className={classes.storePhone} variant='body1'>
+              <Typography className={classes.storePhone} variant='body1' onClick={() => {
+                window.location.href = `tel:${product?.user?.phone}`;
+              }}>
                 <PhoneAndroid />
                 {`${product?.user?.countryCode}${product?.user?.phoneNumber}+`}
               </Typography>

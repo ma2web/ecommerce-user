@@ -1,19 +1,15 @@
 import {
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
+  Button, FormControl,
+  InputLabel, MenuItem, Select, Typography
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductCard from '../../components/productCard/ProductCard';
 import MainLayout from '../../layout/MainLayout/MainLayout';
-import { productActions } from '../../redux/actions/products';
 import { categoryActions } from '../../redux/actions/category';
-import { watchlistActions } from '../../redux/actions/watchlist';
 import { filterActions } from '../../redux/actions/filter';
+import { productActions } from '../../redux/actions/products';
+import { watchlistActions } from '../../redux/actions/watchlist';
 import useStyles from './Products.styles';
 
 const Products = () => {
@@ -66,16 +62,8 @@ const Products = () => {
     <MainLayout>
       <Typography variant='h4'>محصولات</Typography>
       <div className={classes.root}>
-        <div className={classes.products}>
-          {products?.map((product) => (
-            <div className={classes.product}>
-              <div className={classes.productData}>
-                <ProductCard product={product} key={product?.id} />
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className={classes.filter}>
+
+      <div className={classes.filter}>
           <Typography variant='h6'>فیلتر</Typography>
           <div className={classes.filterRow}>
             <FormControl className={classes.formControl}>
@@ -154,6 +142,15 @@ const Products = () => {
               <Typography variant='h6'>اعمال فیلتر</Typography>
             </Button>
           </div>
+        </div>
+        <div className={classes.products}>
+          {products?.map((product) => (
+            <div className={classes.product}>
+              <div className={classes.productData}>
+                <ProductCard product={product} key={product?.id} />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </MainLayout>

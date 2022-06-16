@@ -1,17 +1,17 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { watchlistActions } from '../../redux/actions/watchlist';
 import { api } from '../../redux/api';
 import { addCommas } from '../../utils/utils';
 import useStyles from './ProductCard.styles';
-import * as React from 'react';
-import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { watchlistActions } from '../../redux/actions/watchlist';
-import { useDispatch, useSelector } from 'react-redux';
 
 export default function ProductCard({ product }) {
   const classes = useStyles();
@@ -52,7 +52,7 @@ export default function ProductCard({ product }) {
       <Card>
         <CardMedia
           component='img'
-          height='194'
+          height='300'
           image={`${api}/uploads/admin/product/${product?._id}/${product?.images?.[0]}`}
           alt={product?.name}
           onClick={() => navigate(`/product/${product?._id}`)}
