@@ -29,6 +29,19 @@ const useStyles = makeStyles((theme) => ({
   filterRow: {
     margin: theme.spacing(3, 0),
   },
+  [theme.breakpoints.down('md')]: {
+    products: {
+      width: 100 + '%',
+    },
+    filter: {
+      width: 100 + '%',
+    },
+    product: {
+      paddingRight: theme.spacing(0),
+      paddingBottom: theme.spacing(3),
+      width: 100 + '%',
+    },
+  },
 }));
 
 export default useStyles;

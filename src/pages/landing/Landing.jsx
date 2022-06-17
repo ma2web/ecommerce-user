@@ -1,19 +1,18 @@
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ProductCard from '../../components/productCard/ProductCard';
-import CategoryCard from '../../components/categoryCard/CategoryCard';
-import MainLayout from '../../layout/MainLayout/MainLayout';
-import { productActions } from '../../redux/actions/products';
-import { categoryActions } from '../../redux/actions/category';
-import useStyles from './Landing.styles';
-import { Typography } from '@mui/material';
 import SimpleImageSlider from 'react-simple-image-slider';
 import Slider1 from '../../assets/images/slider/01.jpg';
 import Slider2 from '../../assets/images/slider/02.jpg';
 import Slider3 from '../../assets/images/slider/03.jpg';
 import Slider4 from '../../assets/images/slider/04.jpg';
+import CategoryCard from '../../components/categoryCard/CategoryCard';
+import ProductCard from '../../components/productCard/ProductCard';
+import MainLayout from '../../layout/MainLayout/MainLayout';
+import { categoryActions } from '../../redux/actions/category';
+import { productActions } from '../../redux/actions/products';
+import useStyles from './Landing.styles';
 
 const Landing = () => {
   const classes = useStyles();
@@ -46,7 +45,7 @@ const Landing = () => {
     <MainLayout>
       <div className={classes.slider}>
         <SimpleImageSlider
-          width={'95.5%'}
+          width={window.innerWidth > 768 ? '95.5%' : '85%'}
           height={600}
           images={images}
           showBullets={true}
@@ -54,7 +53,7 @@ const Landing = () => {
           autoPlay={true}
         />
       </div>
-      
+
       <div className={classes.seeAll}>
         <Typography variant='h6'>دسته بندی</Typography>
       </div>

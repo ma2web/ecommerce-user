@@ -85,6 +85,11 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  [theme.breakpoints.down('md')]: {
+    root: {
+      display: 'block',
+    },
+  },
 }));
 
 export default useStyles;

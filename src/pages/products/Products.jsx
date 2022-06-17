@@ -1,6 +1,10 @@
 import {
-  Button, FormControl,
-  InputLabel, MenuItem, Select, Typography
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,11 +29,10 @@ const Products = () => {
   const [childCategory, setChildCategory] = useState('');
   const [parentFilter, setParentFilter] = useState('');
 
-
   useEffect(() => {
     if (!renderAfterCalled.current) {
       dispatch(productActions.getProducts());
-      dispatch(watchlistActions.getAll())
+      dispatch(watchlistActions.getAll());
 
       if (!categories) {
         dispatch(categoryActions.getCategories());
@@ -47,23 +50,26 @@ const Products = () => {
 
   const handleFilter = async (e) => {
     e.preventDefault();
-    const data = {
-      categories: childCategory,
-      filters: Object.entries(parentFilter).map(([key, value]) => ({
-        name: key,
-        value: value,
-      })),
-    };
+    if (childCategory) {
+      const data = {
+        categories: childCategory,
+        filters: Object.entries(parentFilter).map(([key, value]) => ({
+          name: key,
+          value: value,
+        })),
+      };
 
-    await dispatch(productActions.filterProducts({ data }));
+      await dispatch(productActions.filterProducts({ data }));
+    } else {
+      dispatch(productActions.getProducts());
+    }
   };
 
   return (
     <MainLayout>
       <Typography variant='h4'>محصولات</Typography>
       <div className={classes.root}>
-
-      <div className={classes.filter}>
+        <div className={classes.filter}>
           <Typography variant='h6'>فیلتر</Typography>
           <div className={classes.filterRow}>
             <FormControl className={classes.formControl}>
@@ -115,14 +121,20 @@ const Products = () => {
                     {filter?.name}
                   </InputLabel>
                   <Select
-                    onChange={(e) =>
-                      setParentFilter({
-                        ...parentFilter,
-                        [filter?.name?.trim()]: e.target.value,
-                      })
-                    }
+                    onChange={(e) => {
+                      console.log(parentFilter);
+                      if (e.target.value.length) {
+                        setParentFilter({
+                          ...parentFilter,
+                          [filter?.name?.trim()]: e.target.value,
+                        });
+                      } else {
+                        delete parentFilter[filter?.name?.trim()];
+                      }
+                    }}
                     value={parentFilter?.[filter?.name]}
                   >
+                    <MenuItem value=''>انتخاب کنید</MenuItem>
                     {filter?.values?.map((value) => (
                       <MenuItem key={value?._id} value={value?._id}>
                         {value?.name}
