@@ -29,67 +29,79 @@ export default function ProductCard({ product }) {
     } else {
       dispatch(watchlistActions.removeFromWatchlist({ productId }));
     }
-  }
+  };
 
   React.useEffect(() => {
-    if(watchlist.length > 0) {
-      const findItem = watchlist?.find((item) => item.product._id === product._id);
+    if (watchlist.length > 0) {
+      const findItem = watchlist?.find(
+        (item) => item.product._id === product._id
+      );
 
-      if(findItem?.product) {
+      if (findItem?.product) {
         setFavorite(true);
       }
     }
   }, [watchlist]);
 
-
   return (
-    <div
-      className={classes.root}
-    >
-      <div className={classes.price} onClick={() => navigate(`/product/${product?._id}`)}>
-        <Typography variant='h6'>{addCommas(product?.price)} تومان</Typography>
-      </div>
-      <Card>
-        <CardMedia
-          component='img'
-          height='300'
-          image={`${api}/uploads/admin/product/${product?._id}/${product?.images?.[0]}`}
-          alt={product?.name}
-          onClick={() => navigate(`/product/${product?._id}`)}
-        />
-        <CardContent onClick={() => navigate(`/product/${product?._id}`)}>
-          <Typography
-            className={classes.productName}
-            variant='h6'
-            color='text.secondary'
+    <>
+      {product?.published && (
+        <div className={classes.root}>
+          <div
+            className={classes.price}
+            onClick={() => navigate(`/product/${product?._id}`)}
           >
-            {product?.name}
-          </Typography>
-          <Typography
-            className={classes.productDescription}
-            variant='body2'
-            color='text.secondary'
-          >
-            {product?.description}
-          </Typography>
-          <br />
-          <Typography
-            className={classes.productDescription}
-            variant='caption'
-            color='text.secondary'
-          >
-            فروشنده:‌{product?.user?.firstName} {product?.user?.lastName}
-          </Typography>          
-        </CardContent>
-        <CardActions disableSpacing>
-            <IconButton onClick={() => handleFavorite()} aria-label="add to favorites" color={favorite ? 'primary' : 'default'}>
-              <FavoriteIcon />
-            </IconButton>
-            {/* <IconButton aria-label="share">
+            <Typography variant='h6'>
+              {addCommas(product?.price)} تومان
+            </Typography>
+          </div>
+          <Card>
+            <CardMedia
+              component='img'
+              height='300'
+              image={`${api}/uploads/admin/product/${product?._id}/${product?.images?.[0]}`}
+              alt={product?.name}
+              onClick={() => navigate(`/product/${product?._id}`)}
+            />
+            <CardContent onClick={() => navigate(`/product/${product?._id}`)}>
+              <Typography
+                className={classes.productName}
+                variant='h6'
+                color='text.secondary'
+              >
+                {product?.name}
+              </Typography>
+              <Typography
+                className={classes.productDescription}
+                variant='body2'
+                color='text.secondary'
+              >
+                {product?.description}
+              </Typography>
+              <br />
+              <Typography
+                className={classes.productDescription}
+                variant='caption'
+                color='text.secondary'
+              >
+                فروشنده:‌{product?.user?.firstName} {product?.user?.lastName}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton
+                onClick={() => handleFavorite()}
+                aria-label='add to favorites'
+                color={favorite ? 'primary' : 'default'}
+              >
+                <FavoriteIcon />
+              </IconButton>
+              {/* <IconButton aria-label="share">
               <ShareIcon />
             </IconButton> */}
-          </CardActions>
-      </Card>
-    </div>
+            </CardActions>
+          </Card>
+        </div>
+      )}
+    </>
   );
 }
