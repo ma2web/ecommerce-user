@@ -51,9 +51,18 @@ export default function ProductCard({ product }) {
             className={classes.price}
             onClick={() => navigate(`/product/${product?._id}`)}
           >
-            <Typography variant='h6'>
-              {addCommas(product?.price)} تومان
-            </Typography>
+            {product?.discount ? (
+              <Typography variant='h6'>
+                <del className={classes.grayText}>
+                  {addCommas(product?.price)} تومان
+                </del>{' '}
+                {addCommas((product?.price * product?.discount) / 100)} تومان
+              </Typography>
+            ) : (
+              <Typography variant='h6'>
+                {addCommas(product?.price)} تومان
+              </Typography>
+            )}
           </div>
           <Card>
             <CardMedia

@@ -12,5 +12,11 @@ export const theme = createTheme({
     secondary: {
       main: '#3d464d',
     },
+    text: {
+      secondary: '#3d464d',
+    },
+    grey: {
+      main: '#979797',
+    },
   },
 });

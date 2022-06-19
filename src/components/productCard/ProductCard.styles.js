@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     '-webkit-line-clamp': 3,
     '-webkit-box-orient': 'vertical',
   },
+  grayText: {
+    color: theme.palette.grey.main,
+  },
 }));
 
 export default useStyles;
