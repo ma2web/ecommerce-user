@@ -56,7 +56,10 @@ export default function ProductCard({ product }) {
                 <del className={classes.grayText}>
                   {addCommas(product?.price)} تومان
                 </del>{' '}
-                {addCommas((product?.price * product?.discount) / 100)} تومان
+                {addCommas(
+                  product?.price - (product?.price * product?.discount) / 100
+                )}{' '}
+                تومان
               </Typography>
             ) : (
               <Typography variant='h6'>
