@@ -22,7 +22,7 @@ export default function ProductCard({ product }) {
 
   const handleFavorite = () => {
     setFavorite(!favorite);
-    const productId = product._id;
+    const productId = product?._id;
 
     if (!favorite) {
       dispatch(watchlistActions.addToWatchlist({ productId }));
@@ -34,7 +34,7 @@ export default function ProductCard({ product }) {
   React.useEffect(() => {
     if (watchlist.length > 0) {
       const findItem = watchlist?.find(
-        (item) => item.product._id === product._id
+        (item) => item.product._id === product?._id
       );
 
       if (findItem?.product) {
