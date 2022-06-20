@@ -71,7 +71,11 @@ export default function ProductCard({ product }) {
             <CardMedia
               component='img'
               height='300'
-              image={`${api}/uploads/admin/product/${product?._id}/${product?.images?.[0]}`}
+              image={
+                product?.images?.[0]
+                  ? `${api}/uploads/admin/product/${product?._id}/${product?.images?.[0]}`
+                  : 'https://www.dentanice.com.tr/wp-content/uploads/2016/10/orionthemes-placeholder-image.png'
+              }
               alt={product?.name}
               onClick={() => navigate(`/product/${product?._id}`)}
             />
