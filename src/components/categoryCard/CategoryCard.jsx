@@ -1,13 +1,13 @@
-import React from 'react';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import useStyles from './CategoryCard.styles';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import Typography from '@mui/material/Typography';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import useStyles from './CategoryCard.styles';
 
 const CategoryCard = ({ category }) => {
   const classes = useStyles();
@@ -28,7 +28,7 @@ const CategoryCard = ({ category }) => {
             <>
               <ListItemButton
                 key={el?._id}
-                onClick={() => navigate(`/product/category/${el?._id}`)}
+                onClick={() => navigate(`/product/category/${el?._id}?name=${el?.name}`)}
               >
                 <ArrowLeftIcon />
                 <ListItemText primary={el?.name} />

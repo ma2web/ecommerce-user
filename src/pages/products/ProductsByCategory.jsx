@@ -1,12 +1,12 @@
 import { Typography } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import Loading from '../../components/loading/Loading';
 import ProductCard from '../../components/productCard/ProductCard';
 import MainLayout from '../../layout/MainLayout/MainLayout';
 import { productActions } from '../../redux/actions/products';
 import useStyles from './Products.styles';
-import { useParams } from 'react-router-dom';
-import Loading from '../../components/loading/Loading';
 
 const ProductsByCategory = () => {
   const classes = useStyles();
@@ -15,6 +15,9 @@ const ProductsByCategory = () => {
   const products = useSelector((state) => state.products.products);
   const params = useParams();
   const [loading, setLoading] = useState(true);
+  const { search } = window.location;
+  const paramss = new URLSearchParams(search);
+  const name = paramss.get('name');
 
   useEffect(() => {
     (async () => {
@@ -30,9 +33,9 @@ const ProductsByCategory = () => {
   });
   return (
     <MainLayout>
-      <Typography variant='h4'>محصولات</Typography>
+      <Typography variant='h4'>دسته بندی:‌ {name}</Typography>
       <div className={classes.root}>
-        <div className={classes.products}>
+        <div className={classes.productByCategory}>
           {loading ? (
             <Loading />
           ) : (

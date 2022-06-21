@@ -12,6 +12,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
   },
+  productByCategory: {
+    width: 100 + '%',
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
   filter: {
     width: 20 + '%',
   },
