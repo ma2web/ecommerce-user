@@ -85,6 +85,14 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  slider: {
+    display: 'flex',
+    '& img': {
+      width: 150,
+      height: 150,
+      cursor: 'pointer',
+    }
+  },
   [theme.breakpoints.down('md')]: {
     root: {
       display: 'block',

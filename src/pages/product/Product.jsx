@@ -85,6 +85,28 @@ const Product = () => {
               src={`${api}/uploads/admin/product/${product?._id}/${product?.images?.[0]}`}
               alt={product?.name}
             />
+            {
+              <div className={classes.slider}>
+                {
+                  product?.images?.length > 1 && (
+                    <>
+                    {product?.images?.map((el, index) => (
+                        <div>
+                        <img
+                          key={index}
+                          src={`${api}/uploads/admin/product/${product?._id}/${el}`}
+                          alt={product?.name}
+                          onClick={() => {
+                            window.open(`${api}/uploads/admin/product/${product?._id}/${el}`);
+                          }}
+                        />
+                    </div>
+                      ))}
+                    </>
+                  )
+                }
+              </div>
+            }
           </div>
         </div>
       )}
