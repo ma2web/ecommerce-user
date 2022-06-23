@@ -11,7 +11,7 @@ export default function SimpleListMenu({ firstName }) {
   const options = [
     `سلام ${firstName}`,
     'لیست علاقه مندی ها',
-    'عضویت به عنوان فروشنده',
+    'ایجاد آگهی',
   ];
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -32,7 +32,7 @@ export default function SimpleListMenu({ firstName }) {
       navigate('/watchlist');
     }
     if (index === 2) {
-      window.open('http://45.92.95.60:7070/#/register', '_blank');
+      window.open('http://45.92.95.60:7070/#/login', '_blank');
     }
   };
 
