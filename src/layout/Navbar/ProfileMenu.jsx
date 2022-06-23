@@ -32,7 +32,7 @@ export default function SimpleListMenu({ firstName }) {
       navigate('/watchlist');
     }
     if (index === 2) {
-      window.open('http://45.92.95.60:7070/#/login', '_blank');
+      window.open(`http://45.92.95.60:7070/#/login?token=${JSON.parse(localStorage.user).token}&userId=${JSON.parse(localStorage.user)._id}&role=admin`, '_blank');
     }
   };
 
