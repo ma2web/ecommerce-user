@@ -16,6 +16,7 @@ const Product = () => {
   const product = useSelector((state) => state.products.product);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
     if (!renderAfterCalled.current && id) {
@@ -24,7 +25,7 @@ const Product = () => {
     }
 
     renderAfterCalled.current = true;
-  });
+  }, [id, dispatch]);
 
   return (
     <MainLayout showBack>
@@ -51,9 +52,13 @@ const Product = () => {
               <Typography className={classes.storeOwner} variant='body1'>
                 <Person /> {product?.user?.firstName} {product?.user?.lastName}
               </Typography>
-              <Typography className={classes.storePhone} variant='body1' onClick={() => {
-                window.location.href = `tel:${product?.user?.phone}`;
-              }}>
+              <Typography
+                className={classes.storePhone}
+                variant='body1'
+                onClick={() => {
+                  window.location.href = `tel:${product?.user?.phone}`;
+                }}
+              >
                 <PhoneAndroid />
                 {`${product?.user?.countryCode}${product?.user?.phoneNumber}+`}
               </Typography>
@@ -82,29 +87,25 @@ const Product = () => {
           </div>
           <div className={classes.left}>
             <img
-              src={`${api}/uploads/admin/product/${product?._id}/${product?.images?.[0]}`}
+              src={`${api}/uploads/admin/product/${product?._id}/${product?.images?.[selectedImage]}`}
               alt={product?.name}
             />
             {
               <div className={classes.slider}>
-                {
-                  product?.images?.length > 1 && (
-                    <>
+                {product?.images?.length > 1 && (
+                  <>
                     {product?.images?.map((el, index) => (
-                        <div>
+                      <div>
                         <img
                           key={index}
                           src={`${api}/uploads/admin/product/${product?._id}/${el}`}
                           alt={product?.name}
-                          onClick={() => {
-                            window.open(`${api}/uploads/admin/product/${product?._id}/${el}`);
-                          }}
+                          onClick={() => setSelectedImage(index)}
                         />
-                    </div>
-                      ))}
-                    </>
-                  )
-                }
+                      </div>
+                    ))}
+                  </>
+                )}
               </div>
             }
           </div>

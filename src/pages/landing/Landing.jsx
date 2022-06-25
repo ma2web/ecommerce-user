@@ -1,13 +1,12 @@
-import { Button, Typography } from '@mui/material';
+import { Button, Card, CardContent, Typography } from '@mui/material';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SimpleImageSlider from 'react-simple-image-slider';
 import Slider1 from '../../assets/images/slider/01.jpg';
 import Slider2 from '../../assets/images/slider/02.jpg';
 import Slider3 from '../../assets/images/slider/03.jpg';
 import Slider4 from '../../assets/images/slider/04.jpg';
-import CategoryCard from '../../components/categoryCard/CategoryCard';
 import ProductCard from '../../components/productCard/ProductCard';
 import MainLayout from '../../layout/MainLayout/MainLayout';
 import { categoryActions } from '../../redux/actions/category';
@@ -17,6 +16,7 @@ import useStyles from './Landing.styles';
 const Landing = () => {
   const classes = useStyles();
   const renderAfterCalled = useRef(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
   const categories = useSelector(
@@ -59,8 +59,18 @@ const Landing = () => {
       </div>
       <div className={classes.categories}>
         {categories?.map((category) => (
-          <div className={classes.category} key={category?.id}>
-            <CategoryCard category={category} />
+          <div
+            className={classes.category}
+            key={category?.id}
+            onClick={() => {
+              navigate(`/category?id=${category?._id}&name=${category?.name}`);
+            }}
+          >
+            <Card>
+              <CardContent>
+                <Typography variant='h6'>{category?.name}</Typography>
+              </CardContent>
+            </Card>
           </div>
         ))}
       </div>

@@ -45,4 +45,5 @@ export const productActions = {
         console.log(error);
       }
     },
+  clearProducts: () => ({ type: PRODUCTS, payload: [] }),
 };

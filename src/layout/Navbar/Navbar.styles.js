@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: `2px solid ${theme.palette.secondary.main}`,
     },
   },
+  flex: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));
 
 export default useStyles;

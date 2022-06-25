@@ -1,21 +1,20 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import { LoadingButton } from '@mui/lab';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { Link } from 'react-router-dom';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { useDispatch } from 'react-redux';
-import { authActions } from '../../../redux/actions/auth';
-import Snackbar from '@mui/material/Snackbar';
+import { LoadingButton } from '@mui/lab';
 import MuiAlert from '@mui/material/Alert';
-import { useNavigate } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import CssBaseline from '@mui/material/CssBaseline';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Snackbar from '@mui/material/Snackbar';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { authActions } from '../../../redux/actions/auth';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
@@ -35,7 +34,7 @@ export default function Login() {
     const result = await dispatch(
       authActions.login({
         body: {
-          email: data.get('email'),
+          email: data.get('email').toLocaleLowerCase(),
           password: data.get('password'),
         },
       })

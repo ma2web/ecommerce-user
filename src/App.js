@@ -3,16 +3,16 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './layout/Navbar/Navbar';
 import About from './pages/about/About';
+import Login from './pages/auth/login/Login';
+import Register from './pages/auth/register/Register';
 import Contact from './pages/contact/Contact';
 import Landing from './pages/landing/Landing';
 import Product from './pages/product/Product';
+import CategoryProduct from './pages/products/CategoryProduct';
 import Products from './pages/products/Products';
 import ProductsByCategory from './pages/products/ProductsByCategory';
-import Login from './pages/auth/login/Login';
-import Register from './pages/auth/register/Register';
-import Watchlist from './pages/watchlist/Watchlist';
 import Profile from './pages/profile/Profile';
-
+import Watchlist from './pages/watchlist/Watchlist';
 import store from './redux/store';
 import { RTL } from './theme/RTL';
 import { theme } from './theme/theme';
@@ -33,6 +33,7 @@ function App() {
                     path='/product/category/:id'
                     element={<ProductsByCategory />}
                   />
+                  <Route path='/category' element={<CategoryProduct />} />
                   <Route exact path='/products' element={<Products />} />
                   <Route exact path='/about' element={<About />} />
                   <Route exact path='/contact' element={<Contact />} />
