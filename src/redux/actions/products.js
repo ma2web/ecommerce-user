@@ -19,6 +19,7 @@ export const productActions = {
         const response = await axios.get(`${api}/api/product/${id}`);
 
         dispatch({ type: PRODUCT, payload: response.data });
+        return response;
       } catch (error) {
         console.log(error);
       }

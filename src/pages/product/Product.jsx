@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import MainLayout from '../../layout/MainLayout/MainLayout';
+import { filterActions } from '../../redux/actions/filter';
 import { productActions } from '../../redux/actions/products';
 import { api } from '../../redux/api';
 import { addCommas } from '../../utils/utils';
@@ -17,10 +18,31 @@ const Product = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(0);
+  const [allFiltersName, setAllFiltersNameState] = useState([]);
 
   useEffect(() => {
     if (!renderAfterCalled.current && id) {
-      dispatch(productActions.getProduct({ id }));
+      (async () => {
+        let arr = [];
+        const res = await dispatch(productActions.getProduct({ id }));
+        const filters = await dispatch(
+          filterActions.getByCategory({ id: res?.data?.categories })
+        );
+
+        const productFilter = filters?.data?.map((el) => el.values)?.flat();
+
+        for (let i = 0; i < res?.data?.filters.length; i++) {
+          const element = res?.data?.filters[i];
+
+          const filter = productFilter?.find((el) => {
+            return el?._id === element.value;
+          });
+
+          arr.push(filter);
+          setAllFiltersNameState(arr);
+        }
+      })();
+
       setLoading(false);
     }
 
@@ -56,7 +78,7 @@ const Product = () => {
                 className={classes.storePhone}
                 variant='body1'
                 onClick={() => {
-                  window.location.href = `tel:${product?.user?.phone}`;
+                  window.location.href = `tel:${product?.user?.countryCode}${product?.user?.phoneNumber}+`;
                 }}
               >
                 <PhoneAndroid />
@@ -75,15 +97,20 @@ const Product = () => {
                   <span>{el?.name + ' , '}</span>
                 ))}
               </Typography>
-            </div>
-            <div className={classes.subFilter}>
-              <Typography className={classes.subFilterName} variant='body2'>
-                زیر فیلتر:{' '}
-                {product?.subFilter?.map((el) => (
-                  <span>{el?.title + ' , '}</span>
-                ))}
+              <Typography className={classes.filterName} variant='body2'>
+                {allFiltersName?.map((el) => el?.name)?.join(', ')}
               </Typography>
             </div>
+            {product?.subFilter?.length > 0 && (
+              <div className={classes.subFilter}>
+                <Typography className={classes.subFilterName} variant='body2'>
+                  زیر فیلتر:{' '}
+                  {product?.subFilter?.map((el) => (
+                    <span>{el?.title + ' , '}</span>
+                  ))}
+                </Typography>
+              </div>
+            )}
           </div>
           <div className={classes.left}>
             <img

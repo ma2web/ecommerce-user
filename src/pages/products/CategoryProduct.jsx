@@ -157,6 +157,7 @@ const CategoryProduct = () => {
               color='secondary'
               fullWidth
               onClick={handleFilter}
+              disabled={!childCategory}
             >
               <Typography variant='h6'>اعمال فیلتر</Typography>
             </Button>

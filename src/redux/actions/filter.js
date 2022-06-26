@@ -10,6 +10,8 @@ export const filterActions = {
         const response = await axios.get(`${api}/api/filter/category/${id}`);
 
         dispatch({ type: FILTERS, payload: response.data });
+
+        return response;
       } catch (error) {
         console.log(error);
       }
