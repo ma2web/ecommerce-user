@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
   },
   li: {
+    position: 'relative',
     display: 'inline-block',
     padding: theme.spacing(2),
     '& a': {
@@ -25,6 +26,14 @@ const useStyles = makeStyles((theme) => ({
     '& a.active': {
       borderBottom: `2px solid ${theme.palette.secondary.main}`,
     },
+  },
+  liSub: {
+    position: 'absolute',
+    minWidth: 350,
+    zIndex: 1,
+  },
+  liSubDiv: {
+    padding: theme.spacing(1),
   },
   flex: {
     display: 'flex',
