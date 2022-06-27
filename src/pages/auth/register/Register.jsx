@@ -44,7 +44,7 @@ export default function Register() {
       })
     );
     if (result?.data?.message) {
-      setError(result.data.message);
+      setError('کاربری با این ایمیل یا شماره از قبل وجود دارد');
       setLoading(false);
     } else {
       navigate('/login');
