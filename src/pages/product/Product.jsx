@@ -1,9 +1,18 @@
 import { Person, PhoneAndroid } from '@mui/icons-material';
-import { Typography } from '@mui/material';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import MainLayout from '../../layout/MainLayout/MainLayout';
+import { categoryActions } from '../../redux/actions/category';
 import { filterActions } from '../../redux/actions/filter';
 import { productActions } from '../../redux/actions/products';
 import { api } from '../../redux/api';
@@ -19,6 +28,7 @@ const Product = () => {
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(0);
   const [allFiltersName, setAllFiltersNameState] = useState([]);
+  const [categoryName, setCategoryName] = useState('');
 
   useEffect(() => {
     if (!renderAfterCalled.current && id) {
@@ -28,6 +38,10 @@ const Product = () => {
         const filters = await dispatch(
           filterActions.getByCategory({ id: res?.data?.categories })
         );
+        const category = await dispatch(
+          categoryActions.getOneCategory({ id: res?.data?.categories })
+        );
+        setCategoryName(category?.name);
 
         const productFilter = filters?.data?.map((el) => el.values)?.flat();
 
@@ -38,7 +52,10 @@ const Product = () => {
             return el?._id === element.value;
           });
 
-          arr.push(filter);
+          arr.push({
+            parent: element.name,
+            child: filter?.name,
+          });
           setAllFiltersNameState(arr);
         }
       })();
@@ -78,7 +95,7 @@ const Product = () => {
                 className={classes.storePhone}
                 variant='body1'
                 onClick={() => {
-                  window.location.href = `tel:${product?.user?.countryCode}${product?.user?.phoneNumber}+`;
+                  window.location.href = `tel:0${product?.user?.phoneNumber}`;
                 }}
               >
                 <PhoneAndroid />
@@ -86,20 +103,48 @@ const Product = () => {
               </Typography>
             </div>
             <div className={classes.category}>
-              <Typography className={classes.categoryName} variant='body2'>
-                دسته بندی: <span>{product?.categories}</span>
-              </Typography>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+                  <TableBody>
+                    <TableRow
+                      sx={{
+                        '&:last-child td, &:last-child th': { border: 0 },
+                      }}
+                    >
+                      <TableCell component='th' scope='row'>
+                        <b> دسته بندی</b>
+                      </TableCell>
+                      <TableCell align='right'>{categoryName}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
+            <br />
             <div className={classes.filter}>
               <Typography className={classes.filterName} variant='body2'>
-                فیلتر:{' '}
-                {product?.filters?.map((el) => (
-                  <span>{el?.name + ' , '}</span>
-                ))}
+                مشخصات فنی:
               </Typography>
-              <Typography className={classes.filterName} variant='body2'>
-                {allFiltersName?.map((el) => el?.name)?.join(', ')}
-              </Typography>
+              <br />
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+                  <TableBody>
+                    {allFiltersName.map((row) => (
+                      <TableRow
+                        key={row.name}
+                        sx={{
+                          '&:last-child td, &:last-child th': { border: 0 },
+                        }}
+                      >
+                        <TableCell component='th' scope='row'>
+                          <b>{row.parent}</b>
+                        </TableCell>
+                        <TableCell align='right'>{row.child}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
             {product?.subFilter?.length > 0 && (
               <div className={classes.subFilter}>

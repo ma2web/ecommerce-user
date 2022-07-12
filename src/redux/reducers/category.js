@@ -1,7 +1,8 @@
-import { CATEGORIES } from '../type';
+import { CATEGORIES, CATEGORY } from '../type';
 
 const initState = {
   categories: [],
+  category: {},
 };
 
 export default function (state = initState, action) {
@@ -12,6 +13,11 @@ export default function (state = initState, action) {
       return {
         ...state,
         categories: payload,
+      };
+    case CATEGORY:
+      return {
+        ...state,
+        category: payload,
       };
     default:
       return state;
