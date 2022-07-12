@@ -23,9 +23,7 @@ const useStyles = makeStyles((theme) => ({
     width: '25%',
   },
   categories: {
-    display: 'flex',
-    width: '100%',
-    flexWrap: 'wrap',
+    marginBottom: theme.spacing(6),
   },
   category: {
     paddingLeft: theme.spacing(3),

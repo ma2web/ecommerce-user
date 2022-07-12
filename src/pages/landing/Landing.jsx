@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Typography } from '@mui/material';
+import { Button, Card, CardContent, Grid, Typography } from '@mui/material';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -57,10 +57,12 @@ const Landing = () => {
       <div className={classes.seeAll}>
         <Typography variant='h6'>دسته بندی</Typography>
       </div>
-      <div className={classes.categories}>
+      <Grid container spacing={4} className={classes.categories}>
         {categories?.map((category) => (
-          <div
-            className={classes.category}
+          <Grid
+            item
+            xs={12}
+            md={3}
             key={category?.id}
             onClick={() => {
               navigate(`/category?id=${category?._id}&name=${category?.name}`);
@@ -71,9 +73,9 @@ const Landing = () => {
                 <Typography variant='h6'>{category?.name}</Typography>
               </CardContent>
             </Card>
-          </div>
+          </Grid>
         ))}
-      </div>
+      </Grid>
 
       <div className={classes.seeAll}>
         <Typography variant='h6'>آخرین محصولات</Typography>
@@ -83,13 +85,13 @@ const Landing = () => {
           </Button>
         </Link>
       </div>
-      <div className={classes.products}>
+      <Grid container className={classes.products} spacing={4}>
         {products?.map((product) => (
-          <div className={classes.product} key={product?.id}>
+          <Grid item xs={12} md={3} key={product?.id}>
             <ProductCard product={product} />
-          </div>
+          </Grid>
         ))}
-      </div>
+      </Grid>
     </MainLayout>
   );
 };
