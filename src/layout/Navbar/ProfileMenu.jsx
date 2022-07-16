@@ -31,7 +31,7 @@ export default function SimpleListMenu({ firstName }) {
         `http://45.92.95.60:7070/#/login?token=${
           JSON.parse(localStorage.user).token
         }&userId=${JSON.parse(localStorage.user)._id}&role=admin`,
-        '_blank'
+        '_self'
       );
     }
   };

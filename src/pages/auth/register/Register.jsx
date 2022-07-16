@@ -12,9 +12,13 @@ import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import PhoneInput from 'react-phone-input-2';
+import ir from 'react-phone-input-2/lang/ir.json';
+import 'react-phone-input-2/lib/material.css';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { authActions } from '../../../redux/actions/auth';
+import useStyles from './Register.styles';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
@@ -25,6 +29,11 @@ export default function Register() {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const navigate = useNavigate();
+  const [phone, setPhone] = React.useState({
+    countryCode: '',
+    phoneNumber: '',
+  });
+  const classes = useStyles();
 
   const handleSubmit = async (event) => {
     setLoading(true);
@@ -38,8 +47,8 @@ export default function Register() {
           password: data.get('password'),
           firstName: data.get('firstName'),
           lastName: data.get('lastName'),
-          countryCode: data.get('countryCode'),
-          phoneNumber: data.get('phoneNumber'),
+          countryCode: phone.countryCode,
+          phoneNumber: phone.phoneNumber,
         },
       })
     );
@@ -130,24 +139,27 @@ export default function Register() {
               name='email'
               autoComplete='email'
             />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              id='countryCode'
-              label='کد کشور'
-              name='countryCode'
-              placeholder='98'
-            />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              id='phoneNumber'
-              label='شماره تلفن'
-              name='phoneNumber'
-              placeholder='9121234567'
-            />
+            <div style={{ direction: 'ltr' }} className={classes.phoneInput}>
+              <br />
+              <PhoneInput
+                style={{ width: '100%' }}
+                country={'ir'}
+                localization={ir}
+                specialLabel='شماره تلفن'
+                onChange={(value, data, event, formattedValue) => {
+                  const countryCode = data.dialCode;
+                  const phoneNumber = value.slice(data.dialCode.length);
+
+                  setPhone({
+                    countryCode,
+                    phoneNumber,
+                  });
+                }}
+                inputProps={{
+                  required: true,
+                }}
+              />
+            </div>
             <TextField
               margin='normal'
               required
