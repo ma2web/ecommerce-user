@@ -83,7 +83,7 @@ export default function SimpleListMenu({ firstName }) {
           <MenuItem
             onClick={(event) => {
               localStorage.clear();
-              navigate('/');
+              window.location.reload();
             }}
           >
             خروج
