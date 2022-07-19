@@ -1,5 +1,6 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { LoadingButton } from '@mui/lab';
+import { Tab, Tabs } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -27,6 +28,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export default function Register() {
   const dispatch = useDispatch();
   const [loading, setLoading] = React.useState(false);
+  const [value, setValue] = React.useState(0);
   const [error, setError] = React.useState(null);
   const navigate = useNavigate();
   const [phone, setPhone] = React.useState({
@@ -42,14 +44,18 @@ export default function Register() {
 
     const result = await dispatch(
       authActions.register({
-        body: {
-          email: data.get('email').toLocaleLowerCase(),
-          password: data.get('password'),
-          firstName: data.get('firstName'),
-          lastName: data.get('lastName'),
-          countryCode: phone.countryCode,
-          phoneNumber: phone.phoneNumber,
-        },
+        body:
+          value === 0
+            ? {
+                password: data.get('password'),
+                countryCode: phone.countryCode,
+                phoneNumber: phone.phoneNumber,
+              }
+            : {
+                password: data.get('password'),
+                countryCode: phone.countryCode,
+                phoneNumber: phone.phoneNumber,
+              },
       })
     );
     if (result?.data?.message) {
@@ -108,58 +114,55 @@ export default function Register() {
           <Typography component='h1' variant='h5'>
             ساخت حساب کاربری
           </Typography>
+          <br />
+          <br />
+          <Tabs
+            value={value}
+            onChange={(e, i) => setValue(i)}
+            aria-label='basic tabs example'
+          >
+            <Tab label='ثبت نام با ایمیل' />
+            <Tab label='ثبت نام با تلفن همراه' />
+          </Tabs>
           <Box
             component='form'
             noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              id='firstName'
-              label='نام'
-              name='firstName'
-            />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              id='lastName'
-              label='نام خانوادگی'
-              name='lastName'
-            />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='آدرس ایمیل'
-              name='email'
-              autoComplete='email'
-            />
-            <div style={{ direction: 'ltr' }} className={classes.phoneInput}>
-              <br />
-              <PhoneInput
-                style={{ width: '100%' }}
-                country={'ir'}
-                localization={ir}
-                specialLabel='شماره تلفن'
-                onChange={(value, data, event, formattedValue) => {
-                  const countryCode = data.dialCode;
-                  const phoneNumber = value.slice(data.dialCode.length);
-
-                  setPhone({
-                    countryCode,
-                    phoneNumber,
-                  });
-                }}
-                inputProps={{
-                  required: true,
-                }}
+            {value === 0 ? (
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                id='email'
+                label='آدرس ایمیل'
+                name='email'
+                autoComplete='email'
               />
-            </div>
+            ) : (
+              <div style={{ direction: 'ltr' }} className={classes.phoneInput}>
+                <br />
+                <PhoneInput
+                  style={{ width: '100%' }}
+                  country={'ir'}
+                  localization={ir}
+                  specialLabel='شماره تلفن'
+                  onChange={(value, data, event, formattedValue) => {
+                    const countryCode = data.dialCode;
+                    const phoneNumber = value.slice(data.dialCode.length);
+
+                    setPhone({
+                      countryCode,
+                      phoneNumber,
+                    });
+                  }}
+                  inputProps={{
+                    required: true,
+                  }}
+                />
+              </div>
+            )}
             <TextField
               margin='normal'
               required

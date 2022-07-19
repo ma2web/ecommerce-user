@@ -1,5 +1,6 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { LoadingButton } from '@mui/lab';
+import { Tab, Tabs } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -12,9 +13,11 @@ import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import PhoneInput from 'react-phone-input-2';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { authActions } from '../../../redux/actions/auth';
+import useStyles from './Login.styles';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
@@ -22,10 +25,15 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function Login() {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const navigate = useNavigate();
-
+  const [value, setValue] = React.useState(0);
+  const [phone, setPhone] = React.useState({
+    countryCode: '',
+    phoneNumber: '',
+  });
   const handleSubmit = async (event) => {
     setLoading(true);
     event.preventDefault();
@@ -33,10 +41,17 @@ export default function Login() {
 
     const result = await dispatch(
       authActions.login({
-        body: {
-          email: data.get('email').toLocaleLowerCase(),
-          password: data.get('password'),
-        },
+        body:
+          value === 0
+            ? {
+                email: data.get('email').toLocaleLowerCase(),
+                password: data.get('password'),
+              }
+            : {
+                countryCode: phone.countryCode,
+                phoneNumber: phone.phoneNumber,
+                password: data.get('password'),
+              },
       })
     );
     if (result?.data?.message) {
@@ -95,22 +110,56 @@ export default function Login() {
           <Typography component='h1' variant='h5'>
             ورود به حساب کاربری
           </Typography>
+          <br />
+          <br />
           <Box
             component='form'
             noValidate
             onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='آدرس ایمیل'
-              name='email'
-              autoComplete='email'
-              autoFocus
-            />
+            <Tabs
+              value={value}
+              onChange={(e, i) => setValue(i)}
+              aria-label='basic tabs example'
+            >
+              <Tab label='ورورد با ایمیل' />
+              <Tab label='ورورد با تلفن همراه' />
+            </Tabs>
+            {value === 0 ? (
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                id='email'
+                label='آدرس ایمیل'
+                name='email'
+                autoComplete='email'
+                autoFocus
+              />
+            ) : (
+              <div style={{ direction: 'ltr' }} className={classes.phoneInput}>
+                <br />
+                <PhoneInput
+                  style={{ width: '100%' }}
+                  country={'ir'}
+                  specialLabel='شماره تلفن'
+                  onChange={(value, data, event, formattedValue) => {
+                    const countryCode = data.dialCode;
+                    const phoneNumber = value.slice(data.dialCode.length);
+
+                    setPhone({
+                      countryCode,
+                      phoneNumber,
+                    });
+                  }}
+                  inputProps={{
+                    required: true,
+                  }}
+                />
+              </div>
+            )}
+
             <TextField
               margin='normal'
               required
